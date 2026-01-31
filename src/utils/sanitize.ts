@@ -123,5 +123,8 @@ export function truncate(text: string | undefined | null, maxLength: number): st
  * @returns Clean plain text, truncated with ellipsis if needed
  */
 export function cleanText(html: string | undefined | null, maxLength = 200): string {
-  return truncate(stripHtml(html), maxLength);
+  // Temporarily simplified - just truncate, skip HTML stripping to debug
+  if (!html) return '';
+  if (html.length <= maxLength) return html;
+  return html.substring(0, maxLength) + '...';
 }
