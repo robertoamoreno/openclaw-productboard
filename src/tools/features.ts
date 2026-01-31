@@ -159,7 +159,8 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
           })),
         };
         console.log('[pb_feature_list] Returning result:', JSON.stringify(result).substring(0, 200));
-        return result;
+        // Try returning as string in case OpenClaw expects that
+        return JSON.stringify(result, null, 2);
       },
     },
 
