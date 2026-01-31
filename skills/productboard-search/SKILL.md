@@ -2,6 +2,8 @@
 name: productboard-search
 description: Search and explore ProductBoard features, products, and feedback
 user-invocable: true
+homepage: https://github.com/robertoamoreno/openclaw-productboard
+metadata: {"openclaw":{"emoji":"🔍"}}
 ---
 
 # ProductBoard Search Skill

@@ -2,11 +2,8 @@
 name: productboard-release
 description: Manage ProductBoard releases and roadmap planning
 user-invocable: false
-metadata:
-  openclaw:
-    requires:
-      env:
-        - PRODUCTBOARD_API_TOKEN
+homepage: https://github.com/robertoamoreno/openclaw-productboard
+metadata: {"openclaw":{"emoji":"🚀"}}
 ---
 
 # ProductBoard Release Planning Skill

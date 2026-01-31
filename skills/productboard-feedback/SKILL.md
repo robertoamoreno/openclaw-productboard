@@ -2,6 +2,8 @@
 name: productboard-feedback
 description: Create and manage customer feedback notes in ProductBoard
 user-invocable: true
+homepage: https://github.com/robertoamoreno/openclaw-productboard
+metadata: {"openclaw":{"emoji":"💬"}}
 ---
 
 # ProductBoard Feedback Skill
