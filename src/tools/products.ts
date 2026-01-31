@@ -3,7 +3,7 @@
  */
 
 import { ProductBoardClient } from '../client/api-client.js';
-import { ToolDefinition } from '../client/types.js';
+import { ToolDefinition, toolResult } from '../client/types.js';
 import { cleanText } from '../utils/sanitize.js';
 
 export function createProductTools(client: ProductBoardClient): ToolDefinition[] {
@@ -40,8 +40,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
           })),
         };
         console.log('[pb_product_list] Returning result:', JSON.stringify(result).substring(0, 200));
-        // Try returning as string in case OpenClaw expects that
-        return JSON.stringify(result, null, 2);
+        return toolResult(result);
       },
     },
 
@@ -91,7 +90,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
           result.componentCount = components.length;
         }
 
-        return result;
+        return toolResult(result);
       },
     },
 
@@ -167,11 +166,11 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
           }
         }
 
-        return {
+        return toolResult({
           productCount: hierarchy.products.length,
           componentCount: hierarchy.components.length,
           hierarchy: Array.from(productMap.values()),
-        };
+        });
       },
     },
   ];

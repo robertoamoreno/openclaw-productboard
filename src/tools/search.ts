@@ -3,7 +3,7 @@
  */
 
 import { ProductBoardClient } from '../client/api-client.js';
-import { ToolDefinition, SearchParams } from '../client/types.js';
+import { ToolDefinition, SearchParams, toolResult } from '../client/types.js';
 
 export function createSearchTools(client: ProductBoardClient): ToolDefinition[] {
   return [
@@ -61,11 +61,11 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
           }
         }
 
-        return {
+        return toolResult({
           totalCount: results.length,
           query: params.query,
           results: grouped,
-        };
+        });
       },
     },
 
@@ -80,11 +80,11 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
       },
       execute: async () => {
         await client.getCurrentUser();
-        return {
+        return toolResult({
           authenticated: true,
           message: 'API token is valid and has access to ProductBoard',
           note: 'ProductBoard API does not provide current user details. Use pb_user_list to see workspace members.',
-        };
+        });
       },
     },
 
@@ -107,14 +107,14 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
         const users = await client.listUsers({
           limit: params.limit as number || 100,
         });
-        return {
+        return toolResult({
           count: users.length,
           users: users.map((u) => ({
             id: u.id,
             email: u.email,
             name: u.name,
           })),
-        };
+        });
       },
     },
   ];

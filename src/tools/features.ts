@@ -9,6 +9,7 @@ import {
   UpdateFeatureParams,
   ListFeaturesParams,
   FeatureStatus,
+  toolResult,
 } from '../client/types.js';
 import { cleanText } from '../utils/sanitize.js';
 
@@ -91,7 +92,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         }
 
         const feature = await client.createFeature(createParams);
-        return {
+        return toolResult({
           success: true,
           feature: {
             id: feature.id,
@@ -99,7 +100,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
             status: feature.status,
             url: feature.links?.html,
           },
-        };
+        });
       },
     },
 
@@ -159,8 +160,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
           })),
         };
         console.log('[pb_feature_list] Returning result:', JSON.stringify(result).substring(0, 200));
-        // Try returning as string in case OpenClaw expects that
-        return JSON.stringify(result, null, 2);
+        return toolResult(result);
       },
     },
 
@@ -181,7 +181,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
       },
       execute: async (params) => {
         const feature = await client.getFeature(params.id as string);
-        return {
+        return toolResult({
           id: feature.id,
           name: feature.name,
           description: feature.description,
@@ -192,7 +192,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
           createdAt: feature.createdAt,
           updatedAt: feature.updatedAt,
           url: feature.links?.html,
-        };
+        });
       },
     },
 
@@ -269,7 +269,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         }
 
         const feature = await client.updateFeature(params.id as string, updateParams);
-        return {
+        return toolResult({
           success: true,
           feature: {
             id: feature.id,
@@ -277,7 +277,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
             status: feature.status,
             url: feature.links?.html,
           },
-        };
+        });
       },
     },
 
@@ -298,10 +298,10 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
       },
       execute: async (params) => {
         await client.deleteFeature(params.id as string);
-        return {
+        return toolResult({
           success: true,
           message: `Feature ${params.id} has been archived`,
-        };
+        });
       },
     },
 
@@ -330,7 +330,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
           params.query as string,
           params.limit as number || 20
         );
-        return {
+        return toolResult({
           count: features.length,
           features: features.map((f) => ({
             id: f.id,
@@ -339,7 +339,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
             description: cleanText(f.description, 200),
             url: f.links?.html,
           })),
-        };
+        });
       },
     },
   ];

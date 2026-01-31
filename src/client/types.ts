@@ -229,6 +229,10 @@ export interface PluginConfig {
 }
 
 // OpenClaw Plugin API types
+export interface ToolResult {
+  content: Array<{ type: 'text'; text: string }>;
+}
+
 export interface ToolDefinition {
   name: string;
   description: string;
@@ -237,7 +241,16 @@ export interface ToolDefinition {
     properties: Record<string, ParameterSchema>;
     required?: string[];
   };
-  execute: (params: Record<string, unknown>) => Promise<unknown>;
+  execute: (params: Record<string, unknown>) => Promise<ToolResult>;
+}
+
+/**
+ * Helper to format tool results for OpenClaw
+ */
+export function toolResult(data: unknown): ToolResult {
+  return {
+    content: [{ type: 'text', text: typeof data === 'string' ? data : JSON.stringify(data, null, 2) }]
+  };
 }
 
 export interface ParameterSchema {

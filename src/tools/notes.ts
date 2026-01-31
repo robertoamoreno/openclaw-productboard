@@ -3,7 +3,7 @@
  */
 
 import { ProductBoardClient } from '../client/api-client.js';
-import { ToolDefinition, CreateNoteParams, ListNotesParams } from '../client/types.js';
+import { ToolDefinition, CreateNoteParams, ListNotesParams, toolResult } from '../client/types.js';
 import { cleanText } from '../utils/sanitize.js';
 
 export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
@@ -93,7 +93,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
         }
 
         const note = await client.createNote(createParams);
-        return {
+        return toolResult({
           success: true,
           note: {
             id: note.id,
@@ -104,7 +104,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
             tags: note.tags,
             url: note.links?.html,
           },
-        };
+        });
       },
     },
 
@@ -139,7 +139,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
         };
 
         const notes = await client.listNotes(listParams);
-        return {
+        return toolResult({
           count: notes.length,
           notes: notes.map((n) => ({
             id: n.id,
@@ -152,7 +152,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
             createdAt: n.createdAt,
             url: n.links?.html,
           })),
-        };
+        });
       },
     },
 
@@ -180,10 +180,10 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
           params.noteId as string,
           params.featureId as string
         );
-        return {
+        return toolResult({
           success: true,
           message: `Note ${params.noteId} has been attached to feature ${params.featureId}`,
-        };
+        });
       },
     },
   ];
