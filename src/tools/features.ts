@@ -10,6 +10,7 @@ import {
   ListFeaturesParams,
   FeatureStatus,
 } from '../client/types.js';
+import { cleanText } from '../utils/sanitize.js';
 
 export function createFeatureTools(client: ProductBoardClient): ToolDefinition[] {
   return [
@@ -150,7 +151,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
             id: f.id,
             name: f.name,
             status: f.status,
-            description: f.description?.substring(0, 200),
+            description: cleanText(f.description, 200),
             owner: f.owner?.email,
             url: f.links?.html,
           })),
@@ -330,7 +331,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
             id: f.id,
             name: f.name,
             status: f.status,
-            description: f.description?.substring(0, 200),
+            description: cleanText(f.description, 200),
             url: f.links?.html,
           })),
         };

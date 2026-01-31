@@ -4,6 +4,7 @@
 
 import { ProductBoardClient } from '../client/api-client.js';
 import { ToolDefinition } from '../client/types.js';
+import { cleanText } from '../utils/sanitize.js';
 
 export function createProductTools(client: ProductBoardClient): ToolDefinition[] {
   return [
@@ -31,7 +32,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
           products: products.map((p) => ({
             id: p.id,
             name: p.name,
-            description: p.description?.substring(0, 200),
+            description: cleanText(p.description, 200),
             createdAt: p.createdAt,
             url: p.links?.html,
           })),
@@ -80,7 +81,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
           result.components = components.map((c) => ({
             id: c.id,
             name: c.name,
-            description: c.description?.substring(0, 200),
+            description: cleanText(c.description, 200),
           }));
           result.componentCount = components.length;
         }
@@ -119,7 +120,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
           productMap.set(product.id, {
             id: product.id,
             name: product.name,
-            description: product.description?.substring(0, 200),
+            description: cleanText(product.description, 200),
             components: [],
           });
         }
@@ -145,7 +146,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
               product.components.push({
                 id: comp.id,
                 name: comp.name,
-                description: comp.description?.substring(0, 200),
+                description: cleanText(comp.description, 200),
                 subcomponents: comp.subcomponents,
               });
             }

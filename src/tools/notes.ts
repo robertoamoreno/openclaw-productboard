@@ -4,6 +4,7 @@
 
 import { ProductBoardClient } from '../client/api-client.js';
 import { ToolDefinition, CreateNoteParams, ListNotesParams } from '../client/types.js';
+import { cleanText } from '../utils/sanitize.js';
 
 export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
   return [
@@ -97,7 +98,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
           note: {
             id: note.id,
             title: note.title,
-            content: note.content?.substring(0, 200),
+            content: cleanText(note.content, 200),
             user: note.user?.email,
             company: note.company?.name,
             tags: note.tags,
@@ -143,7 +144,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
           notes: notes.map((n) => ({
             id: n.id,
             title: n.title,
-            content: n.content?.substring(0, 200),
+            content: cleanText(n.content, 200),
             user: n.user?.email,
             company: n.company?.name,
             tags: n.tags,
