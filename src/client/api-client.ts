@@ -354,14 +354,25 @@ export class ProductBoardClient {
   // ============================================
 
   async getCurrentUser(): Promise<CurrentUser> {
+    // ProductBoard API doesn't have a /users/me endpoint
+    // We validate the token by making a simple API call instead
     const cacheKey = ApiCache.generateKey('pb_user_current', {});
 
     return this.cache.wrap(cacheKey, async () => {
-      const result = await this.request<{ data: CurrentUser }>({
+      // Validate token by fetching products (lightweight call)
+      await this.request<PaginatedResponse<Product>>({
         method: 'GET',
-        url: '/users/me',
+        url: '/products',
+        params: { pageLimit: 1 },
       });
-      return result.data;
+
+      // Return placeholder since we can't get actual user info
+      return {
+        id: 'authenticated',
+        email: 'unknown',
+        name: 'API Token User',
+        role: 'api',
+      };
     });
   }
 

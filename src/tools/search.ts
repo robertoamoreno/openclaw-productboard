@@ -73,20 +73,17 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
     {
       name: 'pb_user_current',
       description:
-        'Get information about the currently authenticated user, including workspace details.',
+        'Validate the API token and confirm access to ProductBoard. Note: ProductBoard API does not expose current user details.',
       parameters: {
         type: 'object',
         properties: {},
       },
       execute: async () => {
-        const user = await client.getCurrentUser();
+        await client.getCurrentUser();
         return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
-          workspaceId: user.workspaceId,
-          workspaceName: user.workspaceName,
+          authenticated: true,
+          message: 'API token is valid and has access to ProductBoard',
+          note: 'ProductBoard API does not provide current user details. Use pb_user_list to see workspace members.',
         };
       },
     },
