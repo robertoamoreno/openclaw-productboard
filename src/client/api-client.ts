@@ -123,13 +123,13 @@ export class ProductBoardClient {
   ): Promise<T[]> {
     const results: T[] = [];
     let cursor: string | undefined;
-    const limit = Math.min(params.limit as number || 100, 100);
+    const pageLimit = Math.min(maxItems || 100, 100);
 
     do {
       const response = await this.request<PaginatedResponse<T>>({
         method: 'GET',
         url: endpoint,
-        params: { ...params, limit, pageCursor: cursor },
+        params: { ...params, pageLimit, pageCursor: cursor },
       });
 
       results.push(...response.data);
