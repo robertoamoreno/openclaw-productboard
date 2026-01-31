@@ -219,6 +219,10 @@ export class ProductBoardClient {
   }
 
   async searchFeatures(query: string, limit = 50): Promise<Feature[]> {
+    if (!query) {
+      return [];
+    }
+
     const cacheKey = ApiCache.generateKey('pb_feature_search', { query, limit });
 
     return this.cache.wrap(cacheKey, async () => {
@@ -371,6 +375,10 @@ export class ProductBoardClient {
   // ============================================
 
   async search(params: SearchParams): Promise<SearchResult[]> {
+    if (!params.query) {
+      return [];
+    }
+
     const cacheKey = ApiCache.generateKey('pb_search', { query: params.query, type: params.type, limit: params.limit });
 
     return this.cache.wrap(cacheKey, async () => {
