@@ -14,25 +14,37 @@ import {
   createSearchTools,
 } from './tools/index.js';
 
+// Create a safe logger that falls back to console
+function createLogger(api: PluginAPI) {
+  const log = api.log;
+  return {
+    info: (msg: string, data?: unknown) => log?.info?.(msg, data) ?? console.log(`[productboard] ${msg}`, data ?? ''),
+    warn: (msg: string, data?: unknown) => log?.warn?.(msg, data) ?? console.warn(`[productboard] ${msg}`, data ?? ''),
+    error: (msg: string, data?: unknown) => log?.error?.(msg, data) ?? console.error(`[productboard] ${msg}`, data ?? ''),
+    debug: (msg: string, data?: unknown) => log?.debug?.(msg, data) ?? undefined,
+  };
+}
+
 /**
  * Plugin registration function called by OpenClaw
  */
 export default function register(api: PluginAPI): void {
-  const config = api.config as PluginConfig;
+  const logger = createLogger(api);
+  const config = (api.config ?? {}) as PluginConfig;
 
-  // Validate required configuration
+  // Check for API token - don't throw, just warn and skip tool registration
   if (!config.apiToken) {
-    api.log.error('ProductBoard API token is required');
-    throw new Error('ProductBoard API token is required. Set it in plugin configuration.');
+    logger.warn('ProductBoard API token not configured. Run: openclaw plugins config openclaw-productboard --set apiToken=YOUR_TOKEN');
+    return;
   }
 
-  api.log.info('Initializing ProductBoard plugin');
+  logger.info('Initializing ProductBoard plugin');
 
   // Initialize the API client
   const client = new ProductBoardClient(config);
 
   // Validate token on startup (non-blocking)
-  validateTokenAsync(client, api);
+  validateTokenAsync(client, logger);
 
   // Register all tools
   const allTools = [
@@ -44,25 +56,27 @@ export default function register(api: PluginAPI): void {
 
   for (const tool of allTools) {
     api.registerTool(tool);
-    api.log.debug(`Registered tool: ${tool.name}`);
+    logger.debug(`Registered tool: ${tool.name}`);
   }
 
-  api.log.info(`ProductBoard plugin initialized with ${allTools.length} tools`);
+  logger.info(`ProductBoard plugin initialized with ${allTools.length} tools`);
 }
+
+type Logger = ReturnType<typeof createLogger>;
 
 /**
  * Validate API token asynchronously
  */
-async function validateTokenAsync(client: ProductBoardClient, api: PluginAPI): Promise<void> {
+async function validateTokenAsync(client: ProductBoardClient, logger: Logger): Promise<void> {
   try {
     const isValid = await client.validateToken();
     if (isValid) {
-      api.log.info('ProductBoard API token validated successfully');
+      logger.info('ProductBoard API token validated successfully');
     } else {
-      api.log.warn('ProductBoard API token validation failed - requests may fail with 401');
+      logger.warn('ProductBoard API token validation failed - requests may fail with 401');
     }
   } catch (error) {
-    api.log.warn('Could not validate ProductBoard API token', { error });
+    logger.warn('Could not validate ProductBoard API token', { error });
   }
 }
 

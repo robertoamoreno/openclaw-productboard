@@ -1,6 +1,6 @@
 {
   "name": "openclaw-productboard",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "OpenClaw plugin for ProductBoard integration",
   "type": "module",
   "main": "dist/index.js",
