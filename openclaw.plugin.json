@@ -1,7 +1,7 @@
 {
   "id": "openclaw-productboard",
   "name": "ProductBoard",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "ProductBoard integration for managing features, products, and customer feedback",
   "configSchema": {
     "type": "object",

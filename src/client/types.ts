@@ -250,9 +250,10 @@ export interface ParameterSchema {
 }
 
 export interface PluginAPI {
-  config: PluginConfig;
+  config: Record<string, unknown>;  // Full OpenClaw config
+  pluginConfig?: PluginConfig;      // Plugin-specific config (preferred)
   registerTool: (tool: ToolDefinition) => void;
-  log: {
+  log?: {
     info: (message: string, data?: unknown) => void;
     warn: (message: string, data?: unknown) => void;
     error: (message: string, data?: unknown) => void;

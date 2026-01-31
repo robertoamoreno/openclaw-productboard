@@ -30,7 +30,9 @@ function createLogger(api: PluginAPI) {
  */
 export default function register(api: PluginAPI): void {
   const logger = createLogger(api);
-  const config = (api.config ?? {}) as PluginConfig;
+
+  // OpenClaw passes plugin-specific config in api.pluginConfig
+  const config = (api.pluginConfig ?? {}) as PluginConfig;
 
   // Check for API token - don't throw, just warn and skip tool registration
   if (!config.apiToken) {
