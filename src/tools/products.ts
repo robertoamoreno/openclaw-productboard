@@ -24,11 +24,9 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
         },
       },
       execute: async (params) => {
-        console.log('[pb_product_list] Starting execution');
         const products = await client.listProducts({
           limit: params.limit as number || 50,
         });
-        console.log('[pb_product_list] Got products:', products.length);
         const result = {
           count: products.length,
           products: products.map((p) => ({
@@ -39,7 +37,6 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
             url: p.links?.html,
           })),
         };
-        console.log('[pb_product_list] Returning result:', JSON.stringify(result).substring(0, 200));
         return toolResult(result);
       },
     },

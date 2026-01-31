@@ -137,7 +137,6 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         },
       },
       execute: async (params) => {
-        console.log('[pb_feature_list] Starting execution');
         const listParams: ListFeaturesParams = {
           productId: params.productId as string | undefined,
           componentId: params.componentId as string | undefined,
@@ -147,7 +146,6 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         };
 
         const features = await client.listFeatures(listParams);
-        console.log('[pb_feature_list] Got features:', features.length);
         const result = {
           count: features.length,
           features: features.map((f) => ({
@@ -159,7 +157,6 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
             url: f.links?.html,
           })),
         };
-        console.log('[pb_feature_list] Returning result:', JSON.stringify(result).substring(0, 200));
         return toolResult(result);
       },
     },
