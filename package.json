@@ -1,5 +1,5 @@
 {
-  "name": "productboard-openclaw",
+  "name": "openclaw-productboard",
   "version": "1.0.0",
   "description": "OpenClaw plugin for ProductBoard integration",
   "main": "dist/index.js",
@@ -17,10 +17,20 @@
     "openclaw",
     "productboard",
     "plugin",
-    "product-management"
+    "product-management",
+    "agent-tools",
+    "api-integration"
   ],
-  "author": "",
+  "author": "Roberto Moreno",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robertoamoreno/openclaw-productboard.git"
+  },
+  "homepage": "https://github.com/robertoamoreno/openclaw-productboard#readme",
+  "bugs": {
+    "url": "https://github.com/robertoamoreno/openclaw-productboard/issues"
+  },
   "dependencies": {
     "axios": "^1.6.0",
     "lru-cache": "^10.0.1"
@@ -31,5 +41,13 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "openclaw.plugin.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ]
 }
