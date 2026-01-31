@@ -1,10 +1,10 @@
 {
   "name": "openclaw-productboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OpenClaw plugin for ProductBoard integration",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "openclaw": {
+  "moltbot": {
     "extensions": "./dist/index.js"
   },
   "scripts": {
