@@ -14,24 +14,28 @@ A lean, fast OpenClaw plugin for ProductBoard integration. Provides 15 agent too
 ## Installation
 
 ```bash
-openclaw plugins install -l ./openclaw-productboard
-```
-
-Or install from npm (coming soon):
-
-```bash
+# Install from npm
 openclaw plugins install openclaw-productboard
+
+# Or install locally for development
+openclaw plugins install -l ./openclaw-productboard
 ```
 
 ## Configuration
 
-Add your ProductBoard API token to your OpenClaw configuration:
+Configure your ProductBoard API token:
+
+```bash
+openclaw plugins config openclaw-productboard --set apiToken=pb_your_api_token_here
+```
+
+Or add to your OpenClaw configuration file (`~/.openclaw/config.json`):
 
 ```json
 {
   "plugins": {
     "entries": {
-      "productboard": {
+      "openclaw-productboard": {
         "config": {
           "apiToken": "pb_your_api_token_here",
           "apiBaseUrl": "https://api.productboard.com",
