@@ -108,15 +108,57 @@ export function getRetryDelay(error: unknown, attempt: number): number {
 }
 
 /**
+ * Extract error message from various API response formats
+ */
+function extractErrorMessage(data: unknown): string {
+  if (!data) return 'Unknown error';
+
+  // Handle object responses
+  if (typeof data === 'object' && data !== null) {
+    const obj = data as Record<string, unknown>;
+
+    // Try common error message fields
+    if (typeof obj.message === 'string') return obj.message;
+    if (typeof obj.error === 'string') return obj.error;
+    if (typeof obj.error_description === 'string') return obj.error_description;
+
+    // Handle nested error object
+    if (obj.error && typeof obj.error === 'object') {
+      const errObj = obj.error as Record<string, unknown>;
+      if (typeof errObj.message === 'string') return errObj.message;
+    }
+
+    // Handle errors array
+    if (Array.isArray(obj.errors) && obj.errors.length > 0) {
+      const firstError = obj.errors[0];
+      if (typeof firstError === 'string') return firstError;
+      if (typeof firstError?.message === 'string') return firstError.message;
+    }
+
+    // Fallback: stringify the object
+    try {
+      return JSON.stringify(data);
+    } catch {
+      return 'Unknown error (unparseable response)';
+    }
+  }
+
+  // Handle string responses
+  if (typeof data === 'string') return data;
+
+  return 'Unknown error';
+}
+
+/**
  * Parse API error response into appropriate error class
  */
 export function parseApiError(
   statusCode: number,
-  responseData?: { code?: string; message?: string; details?: Record<string, unknown> },
+  responseData?: unknown,
   retryAfterHeader?: string
 ): ProductBoardError {
-  const message = responseData?.message || 'Unknown error';
-  const details = responseData?.details;
+  const message = extractErrorMessage(responseData);
+  const details = (responseData as Record<string, unknown>)?.details as Record<string, unknown> | undefined;
 
   switch (statusCode) {
     case 400:
@@ -136,6 +178,7 @@ export function parseApiError(
     case 504:
       return new ServerError(message);
     default:
-      return new ProductBoardError(message, responseData?.code || 'UNKNOWN_ERROR', statusCode, details);
+      const code = (responseData as Record<string, unknown>)?.code as string | undefined;
+      return new ProductBoardError(message, code || 'UNKNOWN_ERROR', statusCode, details);
   }
 }

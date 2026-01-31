@@ -74,7 +74,7 @@ export class ProductBoardClient {
           const { status, data, headers } = error.response;
           throw parseApiError(
             status,
-            data as { code?: string; message?: string; details?: Record<string, unknown> },
+            data,
             headers['retry-after'] as string | undefined
           );
         }
