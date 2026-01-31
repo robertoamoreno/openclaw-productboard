@@ -32,7 +32,7 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
         },
         required: ['query'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const searchParams: SearchParams = {
           query: params.query as string,
           type: params.type as 'feature' | 'note' | 'product' | 'component' | undefined,
@@ -78,7 +78,7 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
         type: 'object',
         properties: {},
       },
-      handler: async () => {
+      execute: async () => {
         const user = await client.getCurrentUser();
         return {
           id: user.id,
@@ -106,7 +106,7 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
           },
         },
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const users = await client.listUsers({
           limit: params.limit as number || 100,
         });

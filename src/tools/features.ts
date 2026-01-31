@@ -62,7 +62,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         },
         required: ['name'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const createParams: CreateFeatureParams = {
           name: params.name as string,
           description: params.description as string | undefined,
@@ -135,7 +135,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
           },
         },
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const listParams: ListFeaturesParams = {
           productId: params.productId as string | undefined,
           componentId: params.componentId as string | undefined,
@@ -174,7 +174,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         },
         required: ['id'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const feature = await client.getFeature(params.id as string);
         return {
           id: feature.id,
@@ -239,7 +239,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         },
         required: ['id'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const updateParams: UpdateFeatureParams = {};
 
         if (params.name) updateParams.name = params.name as string;
@@ -291,7 +291,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         },
         required: ['id'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         await client.deleteFeature(params.id as string);
         return {
           success: true,
@@ -320,7 +320,7 @@ export function createFeatureTools(client: ProductBoardClient): ToolDefinition[]
         },
         required: ['query'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const features = await client.searchFeatures(
           params.query as string,
           params.limit as number || 20

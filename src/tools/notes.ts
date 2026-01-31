@@ -60,7 +60,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
         },
         required: ['content'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const createParams: CreateNoteParams = {
           content: params.content as string,
           title: params.title as string | undefined,
@@ -131,7 +131,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
           },
         },
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const listParams: ListNotesParams = {
           limit: params.limit as number || 50,
           createdFrom: params.createdFrom as string | undefined,
@@ -175,7 +175,7 @@ export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
         },
         required: ['noteId', 'featureId'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         await client.attachNoteToFeature(
           params.noteId as string,
           params.featureId as string

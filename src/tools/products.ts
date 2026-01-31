@@ -23,7 +23,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
           },
         },
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const products = await client.listProducts({
           limit: params.limit as number || 50,
         });
@@ -60,7 +60,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
         },
         required: ['id'],
       },
-      handler: async (params) => {
+      execute: async (params) => {
         const product = await client.getProduct(params.id as string);
 
         const result: Record<string, unknown> = {
@@ -99,7 +99,7 @@ export function createProductTools(client: ProductBoardClient): ToolDefinition[]
         type: 'object',
         properties: {},
       },
-      handler: async () => {
+      execute: async () => {
         const hierarchy = await client.getProductHierarchy();
 
         // Build tree structure

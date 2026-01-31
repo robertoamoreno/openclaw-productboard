@@ -237,7 +237,7 @@ export interface ToolDefinition {
     properties: Record<string, ParameterSchema>;
     required?: string[];
   };
-  handler: (params: Record<string, unknown>) => Promise<unknown>;
+  execute: (params: Record<string, unknown>) => Promise<unknown>;
 }
 
 export interface ParameterSchema {
