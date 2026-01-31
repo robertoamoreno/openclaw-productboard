@@ -1,0 +1,57 @@
+{
+  "id": "productboard",
+  "name": "ProductBoard",
+  "version": "1.0.0",
+  "description": "ProductBoard integration for managing features, products, and customer feedback",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "apiToken": {
+        "type": "string",
+        "description": "ProductBoard API bearer token"
+      },
+      "apiBaseUrl": {
+        "type": "string",
+        "default": "https://api.productboard.com",
+        "description": "ProductBoard API base URL"
+      },
+      "cacheTtlSeconds": {
+        "type": "number",
+        "default": 300,
+        "description": "Cache TTL in seconds for read operations"
+      },
+      "rateLimitPerMinute": {
+        "type": "number",
+        "default": 100,
+        "description": "Maximum API requests per minute"
+      }
+    },
+    "required": ["apiToken"]
+  },
+  "uiHints": {
+    "apiToken": {
+      "label": "ProductBoard API Token",
+      "placeholder": "pb_...",
+      "sensitive": true,
+      "helpText": "Get your API token from ProductBoard Settings > Integrations > Public API"
+    },
+    "apiBaseUrl": {
+      "label": "API Base URL",
+      "placeholder": "https://api.productboard.com",
+      "helpText": "Only change if using a custom ProductBoard instance"
+    },
+    "cacheTtlSeconds": {
+      "label": "Cache TTL (seconds)",
+      "helpText": "How long to cache read operations"
+    },
+    "rateLimitPerMinute": {
+      "label": "Rate Limit (requests/minute)",
+      "helpText": "Maximum API requests per minute"
+    }
+  },
+  "skills": [
+    "skills/productboard-search",
+    "skills/productboard-feedback",
+    "skills/productboard-release"
+  ]
+}
