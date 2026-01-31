@@ -125,11 +125,14 @@ export class ProductBoardClient {
     let cursor: string | undefined;
     const pageLimit = Math.min(maxItems || 100, 100);
 
+    // Remove 'limit' from params as ProductBoard uses 'pageLimit'
+    const { limit: _ignored, ...cleanParams } = params;
+
     do {
       const response = await this.request<PaginatedResponse<T>>({
         method: 'GET',
         url: endpoint,
-        params: { ...params, pageLimit, pageCursor: cursor },
+        params: { ...cleanParams, pageLimit, pageCursor: cursor },
       });
 
       results.push(...response.data);
