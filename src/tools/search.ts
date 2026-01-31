@@ -92,7 +92,7 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
     {
       name: 'pb_user_list',
       description:
-        'List all users in the ProductBoard workspace. Useful for finding user IDs for assigning features.',
+        'List customer/feedback users in ProductBoard. These are people who have provided feedback, not workspace team members.',
       parameters: {
         type: 'object',
         properties: {
@@ -113,7 +113,6 @@ export function createSearchTools(client: ProductBoardClient): ToolDefinition[] 
             id: u.id,
             email: u.email,
             name: u.name,
-            role: u.role,
           })),
         };
       },
