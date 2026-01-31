@@ -23,29 +23,27 @@ openclaw plugins install -l ./openclaw-productboard
 
 ## Configuration
 
-Configure your ProductBoard API token:
-
-```bash
-openclaw plugins config openclaw-productboard --set apiToken=pb_your_api_token_here
-```
-
-Or add to your OpenClaw configuration file (`~/.openclaw/config.json`):
+Add your ProductBoard API token to `~/.openclaw/openclaw.json`:
 
 ```json
 {
   "plugins": {
     "entries": {
       "openclaw-productboard": {
+        "enabled": true,
         "config": {
-          "apiToken": "pb_your_api_token_here",
-          "apiBaseUrl": "https://api.productboard.com",
-          "cacheTtlSeconds": 300,
-          "rateLimitPerMinute": 100
+          "apiToken": "your_productboard_api_token_here"
         }
       }
     }
   }
 }
+```
+
+Then restart the gateway:
+
+```bash
+openclaw gateway restart
 ```
 
 ### Configuration Options

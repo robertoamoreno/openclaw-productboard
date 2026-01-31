@@ -36,7 +36,7 @@ export default function register(api: PluginAPI): void {
 
   // Check for API token - don't throw, just warn and skip tool registration
   if (!config.apiToken) {
-    logger.warn('ProductBoard API token not configured. Run: openclaw plugins config openclaw-productboard --set apiToken=YOUR_TOKEN');
+    logger.warn('ProductBoard API token not configured. Add apiToken to plugins.entries.openclaw-productboard.config in ~/.openclaw/openclaw.json');
     return;
   }
 
