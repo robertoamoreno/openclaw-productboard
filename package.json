@@ -1,6 +1,6 @@
 {
   "name": "openclaw-productboard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "OpenClaw plugin for ProductBoard integration",
   "type": "module",
   "main": "dist/index.js",
@@ -54,7 +54,7 @@
   "files": [
     "dist",
     "skills",
-    "openclaw.plugin.json",
+    "moltbot.plugin.json",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
