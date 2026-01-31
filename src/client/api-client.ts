@@ -129,20 +129,26 @@ export class ProductBoardClient {
     const { limit: _ignored, ...cleanParams } = params;
 
     do {
-      const response = await this.request<PaginatedResponse<T>>({
+      const response = await this.request<PaginatedResponse<T> | T[]>({
         method: 'GET',
         url: endpoint,
         params: { ...cleanParams, pageLimit, pageCursor: cursor },
       });
 
-      results.push(...response.data);
+      // Handle both { data: [...] } and direct array responses
+      const items = Array.isArray(response) ? response : response?.data;
+      if (items && Array.isArray(items)) {
+        results.push(...items);
+      }
 
       if (maxItems && results.length >= maxItems) {
         return results.slice(0, maxItems);
       }
 
-      cursor = response.links?.next
-        ? new URL(response.links.next).searchParams.get('pageCursor') || undefined
+      // Extract cursor for next page (only for object responses with links)
+      const links = !Array.isArray(response) ? response?.links : undefined;
+      cursor = links?.next
+        ? new URL(links.next).searchParams.get('pageCursor') || undefined
         : undefined;
     } while (cursor);
 
