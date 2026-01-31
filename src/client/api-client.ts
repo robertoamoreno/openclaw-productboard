@@ -22,15 +22,15 @@ import {
   SearchParams,
   PluginConfig,
   ProductHierarchy,
-} from './types';
+} from './types.js';
 import {
   parseApiError,
   isRetryableError,
   getRetryDelay,
   ProductBoardError,
-} from './errors';
-import { ApiCache, getCache } from '../utils/cache';
-import { RateLimiter, getRateLimiter } from '../utils/rate-limiter';
+} from './errors.js';
+import { ApiCache, getCache } from '../utils/cache.js';
+import { RateLimiter, getRateLimiter } from '../utils/rate-limiter.js';
 
 const DEFAULT_BASE_URL = 'https://api.productboard.com';
 const MAX_RETRIES = 3;

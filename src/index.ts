@@ -5,14 +5,14 @@
  * customer feedback notes, and workspace users.
  */
 
-import { ProductBoardClient } from './client/api-client';
-import { PluginAPI, PluginConfig } from './client/types';
+import { ProductBoardClient } from './client/api-client.js';
+import { PluginAPI, PluginConfig } from './client/types.js';
 import {
   createFeatureTools,
   createProductTools,
   createNoteTools,
   createSearchTools,
-} from './tools';
+} from './tools/index.js';
 
 /**
  * Plugin registration function called by OpenClaw
@@ -67,6 +67,6 @@ async function validateTokenAsync(client: ProductBoardClient, api: PluginAPI): P
 }
 
 // Export types for consumers
-export type { PluginAPI, PluginConfig } from './client/types';
-export { ProductBoardClient } from './client/api-client';
-export { ProductBoardError } from './client/errors';
+export type { PluginAPI, PluginConfig } from './client/types.js';
+export { ProductBoardClient } from './client/api-client.js';
+export { ProductBoardError } from './client/errors.js';

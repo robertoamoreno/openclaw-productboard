@@ -2,8 +2,8 @@
  * ProductBoard Search and User Tools
  */
 
-import { ProductBoardClient } from '../client/api-client';
-import { ToolDefinition, SearchParams } from '../client/types';
+import { ProductBoardClient } from '../client/api-client.js';
+import { ToolDefinition, SearchParams } from '../client/types.js';
 
 export function createSearchTools(client: ProductBoardClient): ToolDefinition[] {
   return [

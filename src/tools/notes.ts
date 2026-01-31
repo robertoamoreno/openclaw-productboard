@@ -2,8 +2,8 @@
  * ProductBoard Note/Feedback Management Tools
  */
 
-import { ProductBoardClient } from '../client/api-client';
-import { ToolDefinition, CreateNoteParams, ListNotesParams } from '../client/types';
+import { ProductBoardClient } from '../client/api-client.js';
+import { ToolDefinition, CreateNoteParams, ListNotesParams } from '../client/types.js';
 
 export function createNoteTools(client: ProductBoardClient): ToolDefinition[] {
   return [

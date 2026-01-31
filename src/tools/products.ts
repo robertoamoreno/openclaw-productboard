@@ -2,8 +2,8 @@
  * ProductBoard Product Management Tools
  */
 
-import { ProductBoardClient } from '../client/api-client';
-import { ToolDefinition } from '../client/types';
+import { ProductBoardClient } from '../client/api-client.js';
+import { ToolDefinition } from '../client/types.js';
 
 export function createProductTools(client: ProductBoardClient): ToolDefinition[] {
   return [

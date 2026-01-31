@@ -2,14 +2,14 @@
  * ProductBoard Feature Management Tools
  */
 
-import { ProductBoardClient } from '../client/api-client';
+import { ProductBoardClient } from '../client/api-client.js';
 import {
   ToolDefinition,
   CreateFeatureParams,
   UpdateFeatureParams,
   ListFeaturesParams,
   FeatureStatus,
-} from '../client/types';
+} from '../client/types.js';
 
 export function createFeatureTools(client: ProductBoardClient): ToolDefinition[] {
   return [
