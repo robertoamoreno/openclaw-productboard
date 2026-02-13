@@ -1,5 +1,8 @@
 # OpenClaw ProductBoard Plugin
 
+[![npm version](https://img.shields.io/npm/v/openclaw-productboard)](https://www.npmjs.com/package/openclaw-productboard)
+[![npm downloads](https://img.shields.io/npm/dm/openclaw-productboard)](https://www.npmjs.com/package/openclaw-productboard)
+
 A lean, fast OpenClaw plugin for ProductBoard integration. Provides 15 agent tools for managing features, products, customer feedback notes, and workspace users, plus 3 skills for common workflows.
 
 ## Features
@@ -14,7 +17,13 @@ A lean, fast OpenClaw plugin for ProductBoard integration. Provides 15 agent too
 ## Installation
 
 ```bash
-# Install from npm
+# Install via npm
+npm install openclaw-productboard
+```
+
+Or install as an OpenClaw plugin:
+
+```bash
 openclaw plugins install openclaw-productboard
 
 # Or install locally for development
@@ -227,6 +236,7 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 ## Links
 
+- [npm Package](https://www.npmjs.com/package/openclaw-productboard)
 - [ProductBoard](https://www.productboard.com/)
 - [ProductBoard API Documentation](https://developer.productboard.com/)
 - [OpenClaw](https://openclaw.dev/)
