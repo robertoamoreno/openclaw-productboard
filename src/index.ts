@@ -18,9 +18,9 @@ import {
 function createLogger(api: PluginAPI) {
   const log = api.log;
   return {
-    info: (msg: string, data?: unknown) => log?.info?.(msg, data) ?? console.log(`[productboard] ${msg}`, data ?? ''),
-    warn: (msg: string, data?: unknown) => log?.warn?.(msg, data) ?? console.warn(`[productboard] ${msg}`, data ?? ''),
-    error: (msg: string, data?: unknown) => log?.error?.(msg, data) ?? console.error(`[productboard] ${msg}`, data ?? ''),
+    info: (msg: string, data?: unknown) => log?.info?.(msg, data) ?? undefined,
+    warn: (msg: string, data?: unknown) => log?.warn?.(msg, data) ?? undefined,
+    error: (msg: string, data?: unknown) => log?.error?.(msg, data) ?? undefined,
     debug: (msg: string, data?: unknown) => log?.debug?.(msg, data) ?? undefined,
   };
 }
